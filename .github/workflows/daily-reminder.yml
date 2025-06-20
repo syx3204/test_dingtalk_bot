@@ -1,0 +1,33 @@
+name: 每日安全提醒
+
+on:
+  schedule:
+    # 每天北京时间23:20运行 (UTC时间15:20)
+    - cron: '20 15 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v4
+      
+    - name: 设置Python环境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: 安装依赖
+      run: pip install requests
+      
+    - name: 发送安全提醒
+      env:
+        DINGTALK_WEBHOOK_URL: ${{ secrets.DINGTALK_WEBHOOK_URL }}
+        DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
+      run: python safety_reminder.py
+      
+    - name: 记录完成时间
+      run: |
+        echo "提醒已发送于北京时间 $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+        echo "对应UTC时间: $(date -u +'%Y-%m-%d %H:%M:%S')"
