@@ -1,18 +1,9 @@
-name: 多时段安全提醒
+name: 每日安全提醒
 
 on:
   schedule:
-    # 北京时间 0:06 (UTC时间 16:06)
-    - cron: '09 16 * * *'
-    
-    # 北京时间 7:00 (UTC时间 23:00)
-    #- cron: '0 23 * * *'
-    
-    # 北京时间 22:00 (UTC时间 14:00)
-    #- cron: '0 14 * * *'
-    
-    # 北京时间 23:00 (UTC时间 15:00)
-    #- cron: '0 15 * * *'
+    # 北京时间 00:09 (UTC时间 16:09)
+    - cron: '13 16 * * *'
   workflow_dispatch:  # 允许手动触发
 
 jobs:
@@ -40,4 +31,3 @@ jobs:
       run: |
         echo "执行时间(北京时间): $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
         echo "对应UTC时间: $(date -u +'%Y-%m-%d %H:%M:%S')"
-        echo "触发时间点: ${{ github.event.schedule }}"
