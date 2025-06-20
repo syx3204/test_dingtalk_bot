@@ -8,10 +8,22 @@ import hashlib
 import base64
 import urllib.parse
 
-# 从环境变量获取敏感信息
-webhook_url = os.getenv('DINGTALK_WEBHOOK_URL')
-secret = os.getenv('DINGTALK_SECRET')
+# 从环境变量获取敏感信息 - 添加详细检查
+webhook_url = os.getenv('DINGTALK_WEBHOOK_URL', '').strip()
+secret = os.getenv('DINGTALK_SECRET', '').strip()
 
+# 添加详细的错误检查
+if not webhook_url or not secret:
+    print("错误：环境变量未正确设置！")
+    print(f"WEBHOOK_URL: {'已设置' if webhook_url else '未设置'}")
+    print(f"SECRET: {'已设置' if secret else '未设置'}")
+    sys.exit(1)
+
+# 验证URL格式
+if "access_token=" not in webhook_url:
+    print(f"错误：Webhook URL格式不正确！URL: {webhook_url[:50]}...")
+    sys.exit(1)
+    
 safety_messages = [
     "野泳一时爽，危险藏身旁。去泳池记得结伴而行，安全第一！",
     "暑假玩水要小心！水库、野塘别靠近，正规泳池才安心。溺水事故多，别让青春变传说！",
