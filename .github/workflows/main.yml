@@ -2,7 +2,7 @@ name: 每日安全提醒
 
 on:
   schedule:
-    - cron: '0 17 * * *'  # 每5分钟执行一次
+    - cron: '12 17 * * *'  # 每5分钟执行一次
       timezone: 'Asia/Shanghai'
   workflow_dispatch:  # 允许手动触发
 
