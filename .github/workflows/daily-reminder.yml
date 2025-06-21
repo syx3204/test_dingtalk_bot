@@ -2,8 +2,8 @@ name: 每日安全提醒
 
 on:
   schedule:
-    # 北京时间 00:09 (UTC时间 16:09)
-    - cron: '13 16 * * *'
+    - cron: '0 16 * * *'  # 北京时间 08:00
+      timezone: 'Asia/Shanghai'
   workflow_dispatch:  # 允许手动触发
 
 jobs:
