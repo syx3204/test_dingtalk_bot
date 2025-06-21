@@ -84,8 +84,7 @@ if __name__ == "__main__":
     formatted_date = time.strftime("%m月%d日")
     
     # 使用Markdown格式高亮显示@所有人
-    final_message = f"### ⚠ {formatted_date}安全提醒\n" \
-                    f"**<font color='#FFFFFF'><b>@所有人</b></font>**\n\n" \
+    final_message = f"**<font color='#FFFFFF'><b>### ⚠ {formatted_date}安全提醒\n</b></font>**\n\n" \
                     f"{daily_message}"
     
     print(f"准备发送消息: {final_message}")
