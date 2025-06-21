@@ -2,7 +2,7 @@ name: 每日安全提醒
 
 on:
   schedule:
-    - cron: '23 016 * * *'  # 北京时间 08:00
+    - cron: '23 16 * * *'  # 北京时间 08:00
   workflow_dispatch:  # 允许手动触发
 
 jobs:
