@@ -90,3 +90,24 @@ if __name__ == "__main__":
     print(f"准备发送消息: {final_message}")
     result = send_dingtalk_message(final_message, at_all=True)
     print(f"发送状态: {result}")
+
+webhook_url = os.getenv('URL', '').strip()
+secret = os.getenv('SECRET', '').strip()
+
+if __name__ == "__main__":
+    # 检查环境变量是否设置
+    if not webhook_url or not secret:
+        print("错误：未设置钉钉机器人环境变量！")
+        exit(1)
+        
+    # 随机选择一条防溺水提示
+    daily_message = random.choice(safety_messages)
+    formatted_date = time.strftime("%m月%d日")
+    
+    # 使用Markdown格式高亮显示@所有人
+    final_message = f"**<font color='#FFFFFF'><b> ⚠ {formatted_date}安全提醒\n</b></font>**\n\n" \
+                    f"{daily_message}"
+    
+    print(f"准备发送消息: {final_message}")
+    result = send_dingtalk_message(final_message, at_all=True)
+    print(f"发送状态: {result}")
