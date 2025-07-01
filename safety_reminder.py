@@ -7,6 +7,7 @@ import hmac
 import hashlib
 import base64
 import urllib.parse
+import sys
 
 # 从环境变量获取敏感信息 - 添加详细检查
 #webhook_url = os.getenv('DINGTALK_WEBHOOK_URL', '').strip()
