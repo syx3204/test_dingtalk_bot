@@ -1,9 +1,10 @@
-name: 每日安全提醒
+name: 每周安全提醒
 
 on:
   schedule:
-    - cron: '00 00 * * *'  # 每5分钟执行一次
-      timezone: 'Asia/Shanghai'
+    # 每周一北京时间8点执行 (UTC时间0点)
+    - cron: '0 0 * * 1'  # 关键修改：星期字段设为1（周一），UTC时间0点（对应北京时间8点）
+      timezone: 'Asia/Shanghai'  # 声明时区为北京时间
   workflow_dispatch:  # 允许手动触发
 
 jobs:
@@ -12,21 +13,21 @@ jobs:
     steps:
     - name: 检出代码
       uses: actions/checkout@v4
-      
+
     - name: 设置Python环境
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-        
+
     - name: 安装依赖
       run: pip install requests
-      
+
     - name: 发送安全提醒
       env:
         DINGTALK_WEBHOOK_URL: ${{ secrets.DINGTALK_WEBHOOK_URL }}
         DINGTALK_SECRET: ${{ secrets.DINGTALK_SECRET }}
       run: python safety_reminder.py
-      
+
     - name: 记录执行时间
       run: |
         echo "执行时间(北京时间): $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
